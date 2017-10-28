@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language">
+        <item>m²</item>
+        <item>cm²</item>
+        <item>km²</item>
+    </string-array>
+    <string-array name="gioi_tinh">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
+</resources>
