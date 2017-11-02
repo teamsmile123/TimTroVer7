@@ -33,7 +33,6 @@ public class MainActivity2 extends AppCompatActivity
     private ListView listView;
     private CustomListItemAdapterActivity2 adapter=null;
     public static  final String DIACHI="diachi";
-    public static  final String SDT="sdt";
     public static  final String GIATIEN="giatien";
     public static  final String CHITIET="chitiet";
     public static  final String TEN="ten";
@@ -56,6 +55,7 @@ public class MainActivity2 extends AppCompatActivity
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mlist.clear();
                 for (DataSnapshot noteSnapshot : dataSnapshot.getChildren()) {
                     TimNguoiOGhep note = noteSnapshot.getValue(TimNguoiOGhep.class);
                         mlist.add(note);
@@ -74,7 +74,6 @@ public class MainActivity2 extends AppCompatActivity
                         Intent intent = new Intent(MainActivity2.this, MainActivity1.class);
                         Bundle bundle=new Bundle();
                         bundle.putString(DIACHI,mlist.get(i).getDiachi());
-                        bundle.putString(SDT,mlist.get(i).getSdt());
                         bundle.putString(GIATIEN,mlist.get(i).getGiatien());
                         bundle.putString(CHITIET,mlist.get(i).getChitiet());
                         bundle.putString(TEN,mlist.get(i).getTen());

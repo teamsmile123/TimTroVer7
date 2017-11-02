@@ -18,27 +18,38 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import example.com.timtro.models.TimNguoiOGhep;
+
 public class MainActivity3 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    private EditText et1,et2,et3,et4;
+    private EditText ten,tuoi,sdtlh,diachi,giatien;
     private ImageView imv;
     private Button btchontep,btluu;
-    private Spinner spinner;
-    private String[] language;
-    private ArrayAdapter<String> spinnerAddapter;
+    private Spinner spinner1,spinner2;
+    private CheckBox c1,c2,c3,c4,c5,c6;
+    private String[] language1,language2;
+    private ArrayAdapter<String> spinnerAddapter1,spinnerAddapter2;
     private static final int PICK_IMAGE = 100;
-    private String imagePath;
+    private String imagePath,bien1,bien2;
     private int column_index;
+    private DatabaseReference databaseReference;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        mDatabase =  FirebaseDatabase.getInstance().getReference("thongtin");
+        databaseReference = mDatabase.child("nguoioghep");
 
         connectView();
         //tao chu tren thanh toolbar
@@ -53,14 +64,15 @@ public class MainActivity3 extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        spinner = (Spinner) findViewById(R.id.spiner1);
-        language = getResources().getStringArray(R.array.gioi_tinh);
-        spinnerAddapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language);
-        spinner.setAdapter(spinnerAddapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner1 = (Spinner) findViewById(R.id.spiner1);
+        language1 = getResources().getStringArray(R.array.gioi_tinh);
+        spinnerAddapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language1);
+        spinner1.setAdapter(spinnerAddapter1);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("selected: "+language[i]);
+                System.out.println("selected: "+language1[i]);
+                bien1=language1[i];
             }
 
             @Override
@@ -69,18 +81,38 @@ public class MainActivity3 extends AppCompatActivity
             }
         });
 
+        spinner2 = (Spinner) findViewById(R.id.spiner2);
+        language2 = getResources().getStringArray(R.array.gia_tien);
+        spinnerAddapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language2);
+        spinner2.setAdapter(spinnerAddapter2);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("selected: "+language2[i]);
+                bien2=language2[i];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
     }
     private void connectView() {
         //Ket noi voi edit text
-        et1=(EditText) findViewById(R.id.et1) ;
-        et2=(EditText) findViewById(R.id.et2) ;
-        et3=(EditText) findViewById(R.id.et3) ;
-        et4=(EditText) findViewById(R.id.et4) ;
+        ten=(EditText) findViewById(R.id.ten) ;
+        tuoi=(EditText) findViewById(R.id.tuoi) ;
+        sdtlh=(EditText) findViewById(R.id.sdtlh) ;
+        diachi=(EditText) findViewById(R.id.diachi) ;
+        giatien=(EditText) findViewById(R.id.giatien) ;
         imv = (ImageView)findViewById(R.id.imv) ;
         btluu = (Button) findViewById(R.id.btluu);
         btchontep = (Button) findViewById(R.id.btchontep) ;
-
+        c1=(CheckBox) findViewById(R.id.checkBox1) ;
+        c2=(CheckBox) findViewById(R.id.checkBox2) ;
+        c3=(CheckBox) findViewById(R.id.checkBox3) ;
+        c4=(CheckBox) findViewById(R.id.checkBox4) ;
+        c5=(CheckBox) findViewById(R.id.checkBox5) ;
+        c6=(CheckBox) findViewById(R.id.checkBox6) ;
         // set on click
         btchontep.setOnClickListener(this);
         btluu.setOnClickListener(this);
@@ -137,10 +169,11 @@ public class MainActivity3 extends AppCompatActivity
     }
     public void onClickluu(){
 
-        String str1 = et1.getText().toString();
-        String str2 = et2.getText().toString();
-        String str3 = et3.getText().toString();
-        String str4 = et4.getText().toString();
+        String str1 = ten.getText().toString();
+        String str2 = tuoi.getText().toString();
+        String str3 = sdtlh.getText().toString();
+        String str4 = diachi.getText().toString();
+        String str5 = giatien.getText().toString();
 
         if(str1.length()==0){
             Toast.makeText(MainActivity3.this,"Hãy nhập Tên.",Toast.LENGTH_LONG).show();
@@ -167,13 +200,12 @@ public class MainActivity3 extends AppCompatActivity
                                 Toast.makeText(MainActivity3.this, "Hãy nhập địa chỉ trọ.",Toast.LENGTH_LONG).show();
                             }
                             else {
-
+                                if(str5.length()==0){
+                                    Toast.makeText(MainActivity3.this, "Hãy nhập gía tiền.",Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    addDataToFirebase();
                                     Toast.makeText(MainActivity3.this, "Đăng tin thành công.",Toast.LENGTH_LONG).show();
-
-                                   /* Snackbar.make(, "Đăng tin thành công", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();*/
-
-
                                     Thread bamgio = new Thread() {
                                         public void run() {
                                             try {
@@ -189,6 +221,7 @@ public class MainActivity3 extends AppCompatActivity
                                     };
                                     bamgio.start();
                                 }
+                                }
                             }
                         }
                     }
@@ -196,7 +229,28 @@ public class MainActivity3 extends AppCompatActivity
             }
 
     }
-
+    private void addDataToFirebase() {
+        TimNguoiOGhep timNguoiOGhep = new TimNguoiOGhep();
+        String tien=giatien.getText().toString()+bien2;
+        timNguoiOGhep.setGiatien(tien);
+        timNguoiOGhep.setGioiTinh(bien1);
+        timNguoiOGhep.setDiachi(diachi.getText().toString());
+        timNguoiOGhep.setSdtlienhe(sdtlh.getText().toString());
+        timNguoiOGhep.setTen(ten.getText().toString());
+        int age=Integer.parseInt(tuoi.getText().toString());
+        timNguoiOGhep.setTuoi(age);
+        String thongtintro ="";
+        if(c1.isChecked()==true) thongtintro+=c1.getText().toString()+"\n";
+        if(c2.isChecked()==true) thongtintro+=c2.getText().toString()+"\n";
+        if(c3.isChecked()==true) thongtintro+=c3.getText().toString()+"\n";
+        if(c4.isChecked()==true) thongtintro+=c4.getText().toString()+"\n";
+        if(c5.isChecked()==true) thongtintro+=c5.getText().toString()+"\n";
+        if(c6.isChecked()==true) thongtintro+=c6.getText().toString();
+        timNguoiOGhep.setChitiet(thongtintro);
+        String key = databaseReference.push().getKey();
+        timNguoiOGhep.setId(key);
+        databaseReference.push().setValue(timNguoiOGhep);
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

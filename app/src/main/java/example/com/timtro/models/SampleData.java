@@ -13,7 +13,6 @@ public class SampleData {
         TimNguoiOGhep timNguoiOGhep1;
         timNguoiOGhep1 = new TimNguoiOGhep();
         timNguoiOGhep1.setDiachi("K82/95 Nguyễn Lương Bằng-Đà Nẵng");
-        timNguoiOGhep1.setSdt("01657894678");
         timNguoiOGhep1.setGiatien("700k/thang");
         timNguoiOGhep1.setChitiet("Free wifi\n Có khóa cổng\n Cho nấu ăn");
         timNguoiOGhep1.setTen("Huỳnh Thị Hiền");
@@ -24,7 +23,6 @@ public class SampleData {
 
         TimNguoiOGhep timNguoiOGhep2 = new TimNguoiOGhep();
         timNguoiOGhep2.setDiachi("K47/95 Nguyễn Lương Bằng-Đà Nẵng");
-        timNguoiOGhep2.setSdt("01657894678");
         timNguoiOGhep2.setGiatien("1000k/tháng");
         timNguoiOGhep2.setChitiet(" Free wifi\n Trọ thoáng mát\n Có khóa cổng\n Cho nấu ăn");
         timNguoiOGhep2.setTen("Ngô Anh Tú");
@@ -35,7 +33,6 @@ public class SampleData {
 
         TimNguoiOGhep timNguoiOGhep3 = new TimNguoiOGhep();
         timNguoiOGhep3.setDiachi("K2/9 Đồng Kè-Liên Chiểu-Đà Nẵng");
-        timNguoiOGhep3.setSdt("01657894678");
         timNguoiOGhep3.setGiatien("900k/tháng");
         timNguoiOGhep3.setChitiet(" Wifi30k/tháng/người\n Có khóa cổng\n Cho nấu ăn");
         timNguoiOGhep3.setTen("Phan Anh Quang");
@@ -46,7 +43,6 @@ public class SampleData {
 
         TimNguoiOGhep timNguoiOGhep4 = new TimNguoiOGhep();
         timNguoiOGhep4.setDiachi("95 Ngô Sĩ Liên-Liên Chiểu-Đà Nẵng");
-        timNguoiOGhep4.setSdt("01657894678");
         timNguoiOGhep4.setGiatien("850k/tháng");
         timNguoiOGhep4.setChitiet(" Free wifi\n Có khóa cổng\n Cho nấu ăn\n Chủ dể tính");
         timNguoiOGhep4.setTen("Võ Thị Ánh Tuyết");
@@ -57,7 +53,6 @@ public class SampleData {
 
         TimNguoiOGhep timNguoiOGhep5 = new TimNguoiOGhep();
         timNguoiOGhep5.setDiachi("K58/6 Phạm Như Xương-Liên Chiểu-Đà Nẵng");
-        timNguoiOGhep5.setSdt("01657894678");
         timNguoiOGhep5.setGiatien("600k/tháng");
         timNguoiOGhep5.setChitiet(" Free wifi\n Có khóa cổng\n Cho nấu ăn");
         timNguoiOGhep5.setTen("Trần Phú Việt Minh");

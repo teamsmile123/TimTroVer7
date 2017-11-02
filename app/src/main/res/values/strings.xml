@@ -19,7 +19,7 @@
     //dùng cho đăng tin và ở ghép
     <string name="ten">Tên:</string>
     <string name="tuoi">Tuổi:</string>
-    <string name="sdt">SDT:</string>
+    <string name="sdt">SDT liên hệ:</string>
     <string name="diachi">Địa chỉ trọ:</string>
     <string name="gia">Giá phòng:</string>
     <string name="dientich">Diện tích:</string>

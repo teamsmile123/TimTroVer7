@@ -23,7 +23,6 @@ public class MainActivity1 extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     public static  final String DIACHI="diachi";
-    public static  final String SDT="sdt";
     public static  final String GIATIEN="giatien";
     public static  final String CHITIET="chitiet";
     public static  final String TEN="ten";

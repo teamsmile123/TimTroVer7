@@ -9,4 +9,9 @@
         <item>Nam</item>
         <item>Nữ</item>
     </string-array>
+    <string-array name="gia_tien">
+        <item>/Tháng</item>
+        <item>/Quý</item>
+        <item>/Năm</item>
+    </string-array>
 </resources>

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         mDatabase =  FirebaseDatabase.getInstance().getReference("thongtin");
         databaseReference = mDatabase.child("nguoioghep");
 
-       // addInitialDataToFirebase();
+        //addInitialDataToFirebase();
         //tao chu tren thanh toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,8 +109,6 @@ public class MainActivity extends AppCompatActivity
      private void addInitialDataToFirebase() {
 
         List<TimNguoiOGhep> listTimNguoiOGheps = SampleData.getSample();
-         databaseReference.setValue(12);
-         Toast.makeText(MainActivity.this,"sdfsdfs",Toast.LENGTH_LONG).show();
         for (TimNguoiOGhep timNguoiOGhep: listTimNguoiOGheps){
             String key = databaseReference.push().getKey();
             timNguoiOGhep.setId(key);

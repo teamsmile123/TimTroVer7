@@ -13,12 +13,11 @@ public class TimNguoiOGhep {
     private String ten;
     private int tuoi;
     private String gioiTinh;
-    private String sdt;
 
     public TimNguoiOGhep() {
     }
 
-    public TimNguoiOGhep(String id, String diachi, String sdtlienhe, String giatien, String chitiet, String ten, int tuoi, String gioiTinh, String sdt) {
+    public TimNguoiOGhep(String id, String diachi, String sdtlienhe, String giatien, String chitiet, String ten, int tuoi, String gioiTinh) {
         this.id = id;
         this.diachi = diachi;
         this.sdtlienhe = sdtlienhe;
@@ -27,7 +26,6 @@ public class TimNguoiOGhep {
         this.ten = ten;
         this.tuoi = tuoi;
         this.gioiTinh = gioiTinh;
-        this.sdt = sdt;
     }
 
     public String getId() {
@@ -94,11 +92,4 @@ public class TimNguoiOGhep {
         this.gioiTinh = gioiTinh;
     }
 
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
 }
