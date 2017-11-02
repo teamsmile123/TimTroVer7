@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
-            android:id="@+id/t1"
+            android:id="@+id/diachi"
             android:textColor="@color/color3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -39,11 +39,16 @@
             android:textColor="@color/color3" />
 
         <EditText
-            android:id="@+id/t2"
+            android:layout_weight="1"
+            android:id="@+id/giaphong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:textColor="@color/color3" />
+        <Spinner
+            android:id="@+id/spiner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -57,14 +62,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
-            android:id="@+id/t3"
+            android:id="@+id/dientich"
             android:layout_weight="1"
             android:inputType="number"
             android:textColor="@color/color3"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Spinner
-            android:id="@+id/spiner"
+            android:id="@+id/spiner2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
@@ -79,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
-            android:id="@+id/t4"
+            android:id="@+id/sdtlh"
             android:textColor="@color/color3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -113,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/checkBox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Có gác lửng" />

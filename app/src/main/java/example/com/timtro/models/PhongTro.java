@@ -10,15 +10,25 @@ public class PhongTro {
     private String sdtlienhe;
     private String giatien;
     private String chitiet;
+    private String dientich;
 
     public PhongTro() {
     }
 
-    public PhongTro(String diachi, String sdtlienhe, String giatien, String chitiet) {
+    public PhongTro(String diachi, String sdtlienhe, String giatien, String chitiet, String dientich) {
         this.diachi = diachi;
         this.sdtlienhe = sdtlienhe;
         this.giatien = giatien;
         this.chitiet = chitiet;
+        this.dientich = dientich;
+    }
+
+    public String getDientich() {
+        return dientich;
+    }
+
+    public void setDientich(String dientich) {
+        this.dientich = dientich;
     }
 
     public String getId() {

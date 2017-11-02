@@ -18,27 +18,39 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import example.com.timtro.models.PhongTro;
+
 public class MainActivity4 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final int PICK_IMAGE = 1 ;
-    private EditText et1,et2,et3,et4;
-    private Spinner spinner;
+    private EditText diachi,gia,dientich,sdtlh;
+    private Spinner spinner1,spinner2;
     private ImageView imv;
     private Button btchontep, btluu;
-    private String[] language;
-    private ArrayAdapter<String> spinnerAddapter;
+    private String[] language1,language2;
+    private ArrayAdapter<String> spinnerAddapter1,spinnerAddapter2;
     int column_index;
     String imagePath;
+    private DatabaseReference databaseReference;
+    private DatabaseReference mDatabase;
+    private CheckBox c1,c2,c3,c4,c5,c6;
+    private String bien1,bien2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+        mDatabase =  FirebaseDatabase.getInstance().getReference("thongtin");
+        databaseReference = mDatabase.child("phongchothue");
 
         connectView();
         //tao chu tren thanh toolbar
@@ -52,14 +64,33 @@ public class MainActivity4 extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        spinner = (Spinner) findViewById(R.id.spiner);
-        language = getResources().getStringArray(R.array.language);
-        spinnerAddapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language);
-        spinner.setAdapter(spinnerAddapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        spinner1 = (Spinner) findViewById(R.id.spiner1);
+        language1 = getResources().getStringArray(R.array.gia_tien);
+        spinnerAddapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language1);
+        spinner1.setAdapter(spinnerAddapter1);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("selected: "+language[i]);
+                System.out.println("selected: "+language1[i]);
+                bien1=language1[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinner2 = (Spinner) findViewById(R.id.spiner2);
+        language2 = getResources().getStringArray(R.array.dientich);
+        spinnerAddapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,language2);
+        spinner2.setAdapter(spinnerAddapter2);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("selected: "+language2[i]);
+                bien2=language2[i];
             }
 
             @Override
@@ -76,13 +107,19 @@ public class MainActivity4 extends AppCompatActivity
    * */
     private void connectView() {
         //Ket noi voi edit text
-        et1=(EditText) findViewById(R.id.t1) ;
-        et2=(EditText) findViewById(R.id.t2) ;
-        et3=(EditText) findViewById(R.id.t3) ;
-        et4=(EditText) findViewById(R.id.t4) ;
+        diachi=(EditText) findViewById(R.id.diachi) ;
+        gia=(EditText) findViewById(R.id.giaphong) ;
+        dientich=(EditText) findViewById(R.id.dientich) ;
+        sdtlh=(EditText) findViewById(R.id.sdtlh) ;
         imv = (ImageView)findViewById(R.id.imv) ;
         btluu = (Button) findViewById(R.id.btluu);
         btchontep = (Button) findViewById(R.id.btchontep) ;
+        c1=(CheckBox) findViewById(R.id.checkBox1) ;
+        c2=(CheckBox) findViewById(R.id.checkBox2) ;
+        c3=(CheckBox) findViewById(R.id.checkBox3) ;
+        c4=(CheckBox) findViewById(R.id.checkBox4) ;
+        c5=(CheckBox) findViewById(R.id.checkBox5) ;
+        c6=(CheckBox) findViewById(R.id.checkBox6) ;
         // set on click
         btchontep.setOnClickListener(this);
         btluu.setOnClickListener(this);
@@ -141,13 +178,10 @@ public class MainActivity4 extends AppCompatActivity
 
     public void onClickluu(){
 
-        String str1 = et1.getText().toString();
-        String str2 = et2.getText().toString();
-        String str3 = et3.getText().toString();
-        String str4 = et4.getText().toString();
-
-
-
+        String str1 = diachi.getText().toString();
+        String str2 = gia.getText().toString();
+        String str3 = dientich.getText().toString();
+        String str4 = sdtlh.getText().toString();
         if(str1.length()==0){
             Toast.makeText(MainActivity4.this,"Hãy nhập địa chỉ trọ.",Toast.LENGTH_LONG).show();
 
@@ -165,15 +199,12 @@ public class MainActivity4 extends AppCompatActivity
                         Toast.makeText(MainActivity4.this, "Hãy nhập SĐT liên hệ.",Toast.LENGTH_LONG).show();
                     }
                     else {
-                        if(str4.length()<10){
+                        if(str4.length()<10||str4.length()>11){
                             Toast.makeText(MainActivity4.this, "SĐT liên hệ không hợp lệ.",Toast.LENGTH_LONG).show();
                         }
                         else {
+                            addDataToFirebase();
                             Toast.makeText(MainActivity4.this, "Đăng tin thành công.",Toast.LENGTH_LONG).show();
-                               /* Snackbar.make(, "Đăng tin thành công", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-*/
-
                             Thread bamgio = new Thread() {
                                 public void run() {
                                     try {
@@ -194,6 +225,26 @@ public class MainActivity4 extends AppCompatActivity
             }
         }
 
+    }
+    private void addDataToFirebase() {
+        PhongTro phongTro = new PhongTro();
+        phongTro.setDiachi(diachi.getText().toString());
+        String dt=dientich.getText().toString()+bien2;
+        phongTro.setDientich(dt);
+        String tien=gia.getText().toString()+bien1;
+        phongTro.setGiatien(tien);
+        phongTro.setSdtlienhe(sdtlh.getText().toString());
+        String thongtintro ="";
+        if(c1.isChecked()==true) thongtintro+=c1.getText().toString()+"\n";
+        if(c2.isChecked()==true) thongtintro+=c2.getText().toString()+"\n";
+        if(c3.isChecked()==true) thongtintro+=c3.getText().toString()+"\n";
+        if(c4.isChecked()==true) thongtintro+=c4.getText().toString()+"\n";
+        if(c5.isChecked()==true) thongtintro+=c5.getText().toString()+"\n";
+        if(c6.isChecked()==true) thongtintro+=c6.getText().toString();
+        phongTro.setChitiet(thongtintro);
+        String key = databaseReference.push().getKey();
+        phongTro.setId(key);
+        databaseReference.push().setValue(phongTro);
     }
 
     @Override

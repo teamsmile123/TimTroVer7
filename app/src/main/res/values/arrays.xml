@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="language">
+    <string-array name="dientich">
         <item>m²</item>
         <item>cm²</item>
         <item>km²</item>
